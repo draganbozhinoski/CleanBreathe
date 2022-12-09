@@ -1,0 +1,137 @@
+<div class="container">
+<h2 class="text-primary text-center">Current values in the place of the sensor: </h2>
+<h3 class="text-center">PM10: {{currentPms!.currentPm10}}μg/mᶟ | PM25: {{currentPms!.currentPm25}}μg/mᶟ | NOISE: {{currentPms!.currentNoise}}dB</h3>
+  <div class="d-flex justify-content-around">
+    <div *ngIf="dailyPms!.currentPm10 <= 50">
+      <div class="card me-4 mb-4 border rounded">
+        <div class="card-body text-center">
+          <h5 class="card-title text-center">Daily average PM10</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm10}} - Low</p>
+          <p class="card-text text-center"><small class="text-muted">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentPm10 > 50 && dailyPms!.currentPm10 <= 75">
+      <div class="card me-4 mb-4 border rounded bg-secondary">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average PM10</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm10}} - Moderate</p>
+          <p class="card-text text-center"><small class="text-muted">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentPm10 > 75">
+      <div class="card me-4 mb-4 border rounded bg-dark text-white">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average PM10</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm10}} - High</p>
+          <p class="card-text text-center"><small class="">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentPm25 <= 20">
+      <div class="card me-4 mb-4 border rounded">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average PM25</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm25}} - Low</p>
+          <p class="card-text text-center"><small class="text-muted">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentPm25 > 20 && dailyPms!.currentPm25 <= 40">
+      <div class="card me-4 mb-4 border rounded bg-secondary text-white">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average PM25</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm25}} - Moderate</p>
+          <p class="card-text text-center"><small class="">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentPm25 > 40">
+      <div class="card me-4 mb-4 border rounded bg-dark text-white">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average PM25</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentPm25}} - High</p>
+          <p class="card-text text-center"><small class="">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentNoise <= 60">
+      <div class="card me-4 mb-4 border rounded">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average NOISE</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentNoise}}dB - Quite..</p>
+          <p class="card-text text-center"><small class="text-muted">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentNoise >60 && dailyPms!.currentNoise < 85">
+      <div class="card me-4 mb-4 border rounded bg-secondary text-white">
+        <div class="card-body">
+          <h5 class="card-title text-center">Daily average NOISE</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentNoise}}dB - Moderate..</p>
+          <p class="card-text text-center"><small class="">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="dailyPms!.currentNoise >= 85">
+      <div class="card me-4 mb-4 border rounded bg-dark">
+        <div class="card-body text-white">
+          <h5 class="card-title text-center">Daily average NOISE</h5>
+          <p class="card-text text-center fw-bold">{{dailyPms!.currentNoise}}dB - High</p>
+          <p class="card-text text-center"><small class="">Last updated {{currentPms!.date}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="d-flex justify-content-center">
+    <table class="table table-striped w-50 me-4">
+        <thead>
+        <tr>
+            <th scope="col">REGISTERED</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">VALUE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let pm of pm10s">
+            <td>{{pm.localDateTime}}</td>
+            <td class="text-primary fw-bold">{{pm.type}}</td>
+            <td>{{pm.value}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped w-50 me-4">
+        <thead>
+          <tr>
+            <th scope="col">REGISTERED</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">VALUE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pm of pm25s">
+            <td>{{pm.localDateTime}}</td>
+            <td class="text-primary fw-bold">{{pm.type}}</td>
+            <td>{{pm.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped w-50 me-2">
+        <thead>
+          <tr>
+            <th scope="col">REGISTERED</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">VALUE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pm of noises">
+            <td>{{pm.localDateTime}}</td>
+            <td class="text-primary fw-bold">{{pm.type}}</td>
+            <td>{{pm.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
